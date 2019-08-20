@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>注册</title>
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" href="css/register.css">
+		<!--导入jquery-->
+		<script src="js/jquery-3.3.1.js"></script>
+    </head>
+    <body>
+    <!--引入头部-->
+    <div id="header"></div>
+        <!-- 头部 end -->
+    	<div style="text-align:center;red:yellow;font-weight:bold;height:150px;padding-top:100px;font-size:30px;">
+            <h4>恭喜您，激活成功！<span style="color: red" id="count">5</span>秒后为您跳转首页</h4>
+            <h6>如果没有自动跳转，请点击<a href="./index.html">链接</a>手动跳转</h6>
+    	</div>
+        <!--引入尾部-->
+    	<div id="footer"></div>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    </body>
+    <script>
+        $(function () {
+            setInterval(function () {
+                var count = $("#count").text();
+                if(--count <= 0){
+                    location.href = "./index.html";
+                }else{
+                    $("#count").text(count);
+                }
+            },1000);
+        })
+    </script>
+</html>
