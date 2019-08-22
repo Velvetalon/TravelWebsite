@@ -7,6 +7,7 @@ public class PageBean<T> {
     private int totalPage;          //总页数
     private int currentPage;        //当前页码
     private int pageRows;           //每页条目
+    private String keyword;
 
     private List<T> dataList;       //数据列表
 
@@ -23,6 +24,15 @@ public class PageBean<T> {
 
     public PageBean(){
     }
+
+    public String getKeyword(){
+        return keyword;
+    }
+
+    public void setKeyword( String keyword ){
+        this.keyword = keyword;
+    }
+
 
     public int getTotalCount(){
         return totalCount;

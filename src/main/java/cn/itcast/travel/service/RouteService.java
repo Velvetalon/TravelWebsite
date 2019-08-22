@@ -8,5 +8,5 @@ public interface RouteService {
      * 根据cid，currentPage, pageRows创建分页对象
      */
 
-    public abstract PageBean<Route> getPageBean(int cid,int begin, int rows);
+    public abstract PageBean<Route> getPageBean(String cid,int begin, int rows , String rname);
 }

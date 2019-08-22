@@ -1,9 +1,10 @@
 function load() {
-    $.get("/route/queryPage"+location.search,{}, function (data) {
+    $.get("/route/queryPage" + location.search, {}, function (data) {
         if (data["flag"]) {
-            var html = "";
+            data = data["data"];
+            $("#search_input").val(data["keyword"])
             //拼接旅游线路列表
-            data = data["data"]
+            var html = "";
             var dataList = data["dataList"]
             for (var index in dataList) {
                 html += `<li>
@@ -36,28 +37,34 @@ function load() {
             var start = currentPage - 5 > 0 ? currentPage - 5 : 1;
             var end = (start + 9) > totalPage ? totalPage : start + 9;
 
-            html = `<li><a href="${getURL()}?cid=${getCid()}">首页</a></li>`
-            html += `<li class="threeword"><a href="${getURL()}?cid=${getCid()}&pageRows=10&currentPage=${currentPage - 1 > 0 ? currentPage - 1 : 1}">上一页</a></li>`
+            html = `<li><a href="javascript:go(1);">首页</a></li>`
+            html += `<li class="threeword"><a href="javascript:go(${currentPage - 1 > 0 ? currentPage - 1 : 1});">上一页</a></li>`
 
-            for (var i = start; i < end+1; i++) {
-                html += `<li><a href="${getURL()}?cid=${getCid()}&&pageRows=10&currentPage=${i}">${i}</a></li>`
+            for (var i = start; i < end + 1; i++) {
+                html += `<li><a href="javascript:go(${i});">${i}</a></li>`
             }
 
-            html += `<li class="threeword"><a href="${getURL()}?cid=${getCid()}&pageRows=10&currentPage=${currentPage + 1 > totalPage ? totalPage : currentPage + 1}">下一页</a></li>`
-            html += `<li class="threeword"><a href="${getURL()}?cid=${getCid()}&currentPage=${totalPage}">末页</a></li>`
+            html += `<li class="threeword"><a href="javascript:go(${currentPage + 1 > totalPage ? totalPage : currentPage + 1});">下一页</a></li>`
+            html += `<li class="threeword"><a href="javascript:go(${totalPage});">末页</a></li>`
         }
         $("#page_bar").html(html);
     }, "json");
 }
 
 function getCid() {
-    var usp = new URLSearchParams(location.search);
-    return usp.get("cid");
+    return new URLSearchParams(location.search).get("cid");
 }
 
-function getURL(){
-    return location.protocol+"//"+location.hostname+location.pathname
+function getURL() {
+    return location.protocol + "//" + location.hostname + location.pathname
 }
+
+function go(page){
+    var url = new URL(location.href);
+    url.searchParams.set("currentPage",page);
+    location.href = url.href;
+}
+
 //网页加载完成后加载数据
 $(function () {
     load()

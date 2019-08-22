@@ -27,6 +27,7 @@ public class FindUsernameServlet extends HttpServlet {
     protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException{
         ResultInfo info = new ResultInfo();
         //如果session里有缓存则直接返回缓存里的username，降低对数据库访问频率
+        //如果没有缓存则表示当前用户为第一次登录，则校验cookie
         if (req.getSession().getAttribute("username") != null) {
             info.setFlag(true);
             info.setData(req.getSession().getAttribute("username"));
@@ -52,6 +53,7 @@ public class FindUsernameServlet extends HttpServlet {
             User user = userService.decodeCookie(uid.getValue(), value.getValue());
             if (user == null) {
                 info.setFlag(false);
+                info.setErrorMsg("登录失效");
             } else {
                 info.setFlag(true);
                 info.setData(user.getUsername());

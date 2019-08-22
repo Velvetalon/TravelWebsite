@@ -27,6 +27,13 @@
                 html += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
                 document.getElementById("header_bar").innerHTML = html;
             }, "json")
+
+            //绑定搜索按钮事件
+            $("#search-button").click(function () {
+                var usp = new URLSearchParams(location.search);
+                usp.set("rname",$("#search_input").val())
+                location.href = "route_list.html?"+usp.toString();
+            });
         })
     </script>
 
@@ -52,8 +59,8 @@
                 <a href="/"><img src="images/logo.jpg" alt=""></a>
             </div>
             <div class="search">
-                <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
-                <a href="javascript:;" class="search-button">搜索</a>
+                <input id="search_input" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                <a href="javascript:;" id="search-button" class="search-button">搜索</a>
             </div>
             <div class="hottel">
                 <div class="hot_pic">

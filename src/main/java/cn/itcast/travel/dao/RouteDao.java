@@ -8,11 +8,11 @@ public interface RouteDao {
     /**
      * 根据cid查询记录总条数
      */
-    public abstract Integer queryCountByCid(int cid);
+    public abstract Integer queryCountByCid(String cid,String rname);
 
     /**
      * 根据cid,currentPage,pageRows查询分页数据
      */
-    public abstract List<Route> queryRouteList(int cid,int begin, int rows);
+    public abstract List<Route> queryRouteList(String cid,int begin, int rows,String rname);
 
 }

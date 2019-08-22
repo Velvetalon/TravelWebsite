@@ -12,12 +12,12 @@ public class RouteDaoImpl implements RouteDao {
     JdbcTemplate jdbcTemplate = JDBCUtils.getJdbcTemplate();
 
     @Override
-    public Integer queryCountByCid( int cid ){
-        return jdbcTemplate.queryForObject("select count(*) from tab_route where cid = ?",Integer.class,cid);
+    public Integer queryCountByCid( String cid, String rname ){
+        return jdbcTemplate.queryForObject("select count(*) from tab_route where cid like ? and rname like ?", Integer.class, cid, "%"+rname+"%");
     }
 
     @Override
-    public List<Route> queryRouteList( int cid,int begin, int rows ){
-        return jdbcTemplate.query("select * from tab_route where cid = ? limit ? , ?",new BeanPropertyRowMapper<>(Route.class),cid,begin,rows);
+    public List<Route> queryRouteList( String cid, int begin, int rows, String rname ){
+        return jdbcTemplate.query("select * from tab_route where cid like ? and rname like ? limit ? , ?", new BeanPropertyRowMapper<>(Route.class), cid, "%"+rname+"%", begin, rows);
     }
 }
