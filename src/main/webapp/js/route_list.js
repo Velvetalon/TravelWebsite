@@ -37,15 +37,19 @@ function load() {
             var start = currentPage - 5 > 0 ? currentPage - 5 : 1;
             var end = (start + 9) > totalPage ? totalPage : start + 9;
 
-            html = `<li><a href="javascript:go(1);">首页</a></li>`
-            html += `<li class="threeword"><a href="javascript:go(${currentPage - 1 > 0 ? currentPage - 1 : 1});">上一页</a></li>`
+            html = `<li onclick="go(1)">首页</li>`
+            html += `<li class="threeword" onclick="go(${currentPage - 1 > 0 ? currentPage - 1 : 1})">上一页</li>`
 
             for (var i = start; i < end + 1; i++) {
-                html += `<li><a href="javascript:go(${i});">${i}</a></li>`
+                if(i === currentPage){
+                    html += `<li class="curPage" onclick="go(${i})">${i}</li>`
+                }else{
+                    html += `<li onclick="go(${i})">${i}</li>`
+                }
             }
 
-            html += `<li class="threeword"><a href="javascript:go(${currentPage + 1 > totalPage ? totalPage : currentPage + 1});">下一页</a></li>`
-            html += `<li class="threeword"><a href="javascript:go(${totalPage});">末页</a></li>`
+            html += `<li class="threeword" onclick="go(${currentPage + 1 > totalPage ? totalPage : currentPage + 1})">下一页</li>`
+            html += `<li class="threeword" onclick="go(${totalPage})">末页</li>`
         }
         $("#page_bar").html(html);
     }, "json");
