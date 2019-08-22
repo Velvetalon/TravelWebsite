@@ -61,4 +61,14 @@ public class Seller implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString(){
+        return "Seller{" +
+                "sid=" + sid +
+                ", sname='" + sname + '\'' +
+                ", consphone='" + consphone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

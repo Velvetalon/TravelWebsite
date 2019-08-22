@@ -15,4 +15,8 @@ public interface RouteDao {
      */
     public abstract List<Route> queryRouteList(String cid,int begin, int rows,String rname);
 
+    /**
+     * 根据rid查询线路详情
+     */
+    public abstract Route queryRouteByRid(int rid);
 }

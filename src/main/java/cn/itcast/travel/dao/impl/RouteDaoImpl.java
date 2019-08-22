@@ -20,4 +20,13 @@ public class RouteDaoImpl implements RouteDao {
     public List<Route> queryRouteList( String cid, int begin, int rows, String rname ){
         return jdbcTemplate.query("select * from tab_route where cid like ? and rname like ? limit ? , ?", new BeanPropertyRowMapper<>(Route.class), cid, "%"+rname+"%", begin, rows);
     }
+
+    @Override
+    public Route queryRouteByRid( int rid ){
+        List<Route> list = jdbcTemplate.query("SELECT * FROM tab_route WHERE rid = ?", new BeanPropertyRowMapper<>(Route.class), rid);
+        if(list == null || list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
+    }
 }

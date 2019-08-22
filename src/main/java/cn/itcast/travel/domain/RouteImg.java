@@ -62,4 +62,14 @@ public class RouteImg implements Serializable {
     public void setSmallPic(String smallPic) {
         this.smallPic = smallPic;
     }
+
+    @Override
+    public String toString(){
+        return "RouteImg{" +
+                "rgid=" + rgid +
+                ", rid=" + rid +
+                ", bigPic='" + bigPic + '\'' +
+                ", smallPic='" + smallPic + '\'' +
+                '}';
+    }
 }

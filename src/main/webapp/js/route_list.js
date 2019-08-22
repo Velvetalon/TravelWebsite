@@ -20,7 +20,7 @@ function load() {
                                     <span>${dataList[index]["price"]}</span>
                                     <span>起</span>
                                 </p>
-                                <p><a href="route_detail.html">查看详情</a></p>
+                                <p><a href="route_detail.html?rid=${dataList[index]["rid"]}">查看详情</a></p>
                             </div>
                         </li>`
             }
@@ -53,14 +53,6 @@ function load() {
         }
         $("#page_bar").html(html);
     }, "json");
-}
-
-function getCid() {
-    return new URLSearchParams(location.search).get("cid");
-}
-
-function getURL() {
-    return location.protocol + "//" + location.hostname + location.pathname
 }
 
 function go(page){

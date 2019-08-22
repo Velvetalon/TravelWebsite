@@ -46,4 +46,25 @@ public class RouteServlet extends BaseServlet {
         info.setData(routeService.getPageBean(cid_p, currentPage, pageRows,rname_p));
         writeValue(info, response);
     }
+
+    public void queryDetails(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String rid_p = request.getParameter("rid");
+        ResultInfo info = new ResultInfo();
+
+        int rid;
+        try {
+            if(rid_p == null){
+                throw new NumberFormatException();
+            }
+            rid = Integer.valueOf(rid_p);
+
+            info.setFlag(true);
+            info.setData(routeService.getRoute(rid));
+        } catch (NumberFormatException e) {
+            info.setFlag(false);
+            info.setErrorMsg("参数错误");
+        }
+        System.out.println(info);
+        writeValue(info,response);
+    }
 }

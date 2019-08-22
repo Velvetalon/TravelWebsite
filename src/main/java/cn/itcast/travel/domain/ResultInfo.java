@@ -50,8 +50,6 @@ public class ResultInfo implements Serializable {
         return data;
     }
 
-
-
     public void setData(Object data) {
         this.data = data;
     }
@@ -62,5 +60,14 @@ public class ResultInfo implements Serializable {
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+    }
+
+    @Override
+    public String toString(){
+        return "ResultInfo{" +
+                "flag=" + flag +
+                ", data=" + data +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
     }
 }

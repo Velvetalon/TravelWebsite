@@ -32,8 +32,6 @@ public class JDBCUtils {
 			pp.load(is);
 			// 创建连接池，使用配置文件中的参数
 			ds = DruidDataSourceFactory.createDataSource(pp);
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

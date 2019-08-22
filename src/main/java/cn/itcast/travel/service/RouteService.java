@@ -9,4 +9,9 @@ public interface RouteService {
      */
 
     public abstract PageBean<Route> getPageBean(String cid,int begin, int rows , String rname);
+
+    /**
+     * 根据rid查询完整的详情
+     */
+    public abstract Route getRoute(int rid);
 }
