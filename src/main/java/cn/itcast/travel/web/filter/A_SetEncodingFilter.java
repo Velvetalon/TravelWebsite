@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter("/*")
-public class SetEncodingFilter implements Filter {
+public class A_SetEncodingFilter implements Filter {
     public void destroy(){
     }
 

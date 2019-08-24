@@ -25,6 +25,7 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 用户登录
+     *
      * @param request
      * @param response
      * @throws IOException
@@ -71,8 +72,15 @@ public class UserServlet extends BaseServlet {
                 uid_cookie.setMaxAge(60 * 60 * 24 * 7);
                 value_cookie.setMaxAge(60 * 60 * 24 * 7);
             }
+            uid_cookie.setPath("/");
+            value_cookie.setPath("/");
             response.addCookie(uid_cookie);
             response.addCookie(value_cookie);
+
+            //设置登陆状态
+            request.getSession().setAttribute("login_status", true);
+            request.getSession().setAttribute("username",user.getUsername());
+            request.getSession().setAttribute("uid", user.getUid());
         }
         response.getWriter().write(new ObjectMapper().writeValueAsString(info));
     }
@@ -84,8 +92,12 @@ public class UserServlet extends BaseServlet {
 
         uid.setMaxAge(0);
         value.setMaxAge(0);
+        uid.setPath("/");
+        value.setPath("/");
 
         request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("login_status");
+        request.getSession().removeAttribute("uid");
 
         response.addCookie(uid);
         response.addCookie(value);
@@ -95,6 +107,7 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 用户注册
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -160,6 +173,7 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 查找用户名
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -167,44 +181,20 @@ public class UserServlet extends BaseServlet {
      */
     public void findUsername( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
         ResultInfo info = new ResultInfo();
-        //如果session里有缓存则直接返回缓存里的username，降低对数据库访问频率
+        //session有值时表示已登录
         if (request.getSession().getAttribute("username") != null) {
             info.setFlag(true);
             info.setData(request.getSession().getAttribute("username"));
-            response.getWriter().write(new ObjectMapper().writeValueAsString(info));
-            return;
-        }
-
-        Cookie[] cookies = request.getCookies();
-        Cookie uid = null;
-        Cookie value = null;
-
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("uid")) {
-                uid = cookie;
-            } else if (cookie.getName().equals("value")) {
-                value = cookie;
-            }
-        }
-
-        if (uid == null || value == null) {
+        }else{
             info.setFlag(false);
-        } else {
-            User user = userService.decodeCookie(uid.getValue(), value.getValue());
-            if (user == null) {
-                info.setFlag(false);
-            } else {
-                info.setFlag(true);
-                info.setData(user.getUsername());
-                //查询到数据后将username保存在session中作为缓存
-                request.getSession().setAttribute("username", user.getUsername());
-            }
+            info.setErrorMsg("用户未登录");
         }
         response.getWriter().write(new ObjectMapper().writeValueAsString(info));
     }
 
     /**
      * 激活用户
+     *
      * @param request
      * @param response
      * @throws ServletException

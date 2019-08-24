@@ -96,7 +96,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User decodeCookie(String uid, String cookieV ){
+        if(cookieV == null) {
+            return null;
+        }
+
         User user = userDao.findUserByUid(uid);
+        if(user == null){
+            return null;
+        }
         Map map = null;
         try {
             map = new ObjectMapper().readValue(AESUtils.Decrypt(cookieV, user.getKey()), Map.class);

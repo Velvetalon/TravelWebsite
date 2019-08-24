@@ -17,6 +17,4 @@ $(function () {
     $("input[type=text],input[type=password]").focus(function () {
         $("#errorMsg").hidden
     });
-
-
 })
