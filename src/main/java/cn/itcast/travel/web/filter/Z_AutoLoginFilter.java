@@ -37,8 +37,6 @@ public class Z_AutoLoginFilter implements Filter {
                 }
             }
             if (uid != null && value != null) {
-                System.out.println("uid : "+uid.getValue());
-                System.out.println("value : "+ value.getValue());
                 //有cookie且未登录，执行自动登录
                 User user = userService.decodeCookie(uid.getValue(), value.getValue());
                 if (user != null) {
